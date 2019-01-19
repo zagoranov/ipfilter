@@ -72,6 +72,4 @@ int main() {
 			std::any_of(ia.ips.begin(), ia.ips.end(), [](unsigned i) { return i == 46; }); });
 
 	return 0;
-
-	//‘const IpAdress’ to ‘IpAdress&’
 }

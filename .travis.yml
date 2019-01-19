@@ -13,4 +13,4 @@ deploy:
   provider: script
   skip_cleanup: true
   script:
-  - curl -T ipfilter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uromanmuz:$BINTRAY_API_KEY https://api.bintray.com/content/romanmuz/task1/ipfiter/$TRAVIS_BUILD_NUMBER/ipfilter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb
+  - curl -T ipfilter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uromanmuz:$BINTRAY_API_KEY https://api.bintray.com/content/romanmuz/task1/ipfilter/$TRAVIS_BUILD_NUMBER/ipfilter-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb
