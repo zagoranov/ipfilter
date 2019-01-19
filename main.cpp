@@ -18,7 +18,7 @@ public:
 		os << uv.ips.at(0) << "." << uv.ips.at(1) << "." << uv.ips.at(2) << "." << uv.ips.at(3);
 		return os;
 	}
-	bool operator==(const IpAdress& ia)
+	bool operator==(const IpAdress& ia)		//Думал, что дубли не нужно обрабатывать
 	{
     	return ips.at(0) == ia.ips.at(0) && ips.at(1) == ia.ips.at(1) &&
 		        ips.at(2) == ia.ips.at(2) && ips.at(3) == ia.ips.at(3);
@@ -28,7 +28,7 @@ public:
 
 int main() {
 
-    //auto logger = spdlog::stdout_logger_mt("console");
+    //auto logger = spdlog::stdout_logger_mt("console");	//Красивый вывод "ломает" проверку по сумме (
     //logger->info("version {} was started", version());
     
 	std::vector<IpAdress> ips;
@@ -44,7 +44,7 @@ int main() {
 			while (std::getline(iss, token, '.')) {
 				ia.ips.push_back(atoi(token.c_str()));
 				if (ia.ips.size() > 3) break;
-			}
+			}									//Думал, что дубли не нужно обрабатывать
 			if (ia.ips.size() == 4 /*&& std::find(ips.begin(), ips.end(), ia) == ips.end()*/) {
 				ips.emplace_back(ia);
 			}
