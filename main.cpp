@@ -1,12 +1,11 @@
+#include <algorithm>
+#include <iostream>
+#include <iterator>  
 #include "lib.h"
 #include <spdlog/spdlog.h>
-
-#include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
-#include <iterator>  
-#include <sstream>
-#include <algorithm>
 
 
 using Unsigned4vec = std::vector<unsigned>;
@@ -18,11 +17,6 @@ public:
 		os << uv.ips.at(0) << "." << uv.ips.at(1) << "." << uv.ips.at(2) << "." << uv.ips.at(3);
 		return os;
 	}
-	bool operator==(const IpAdress& ia)		//Думал, что дубли не нужно обрабатывать
-	{
-    	return ips.at(0) == ia.ips.at(0) && ips.at(1) == ia.ips.at(1) &&
-		        ips.at(2) == ia.ips.at(2) && ips.at(3) == ia.ips.at(3);
-	}	
 };
 
 
@@ -44,19 +38,19 @@ int main() {
 			while (std::getline(iss, token, '.')) {
 				ia.ips.push_back(atoi(token.c_str()));
 				if (ia.ips.size() > 3) break;
-			}									//Думал, что дубли не нужно обрабатывать
-			if (ia.ips.size() == 4 /*&& std::find(ips.begin(), ips.end(), ia) == ips.end()*/) {
+			}									
+			if (ia.ips.size() == 4) {
 				ips.emplace_back(ia);
 			}
 		}
 	});
 
-	std::sort(ips.begin(), ips.end(), [](const IpAdress u1, const IpAdress u2) { return
-		(u1.ips.at(0) != u2.ips.at(0) ? u1.ips.at(0) > u2.ips.at(0) : (
-			u1.ips.at(1) != u2.ips.at(1) ? u1.ips.at(1) > u2.ips.at(1) : (
-				u1.ips.at(2) != u2.ips.at(2) ? u1.ips.at(2) > u2.ips.at(2) : (
-					 u1.ips.at(3) > u2.ips.at(3) ) ) )
-			); 
+	std::sort(ips.begin(), ips.end(), [](const IpAdress u1, const IpAdress u2) {
+		for(size_t i = 0; i < u1.ips.size(); ++i) {
+			if(u1.ips.at(i) != u2.ips.at(i)) 
+				return (u1.ips.at(i) > u2.ips.at(i));
+		}
+		return false;
 	});
 
 	std::copy(ips.begin(), ips.end(), std::ostream_iterator<IpAdress>(std::cout, "\n"));
